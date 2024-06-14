@@ -9,10 +9,12 @@ public class FoodInstantiator : MonoBehaviour
     public float interval;
     public RandomPlacement randomPlacement;
 
+    public int amountOfFood;
+
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(CloneFood),0,interval);
+        InvokeRepeating(nameof(CloneFood), 0, interval);
     }
 
     // Update is called once per frame
@@ -23,8 +25,13 @@ public class FoodInstantiator : MonoBehaviour
 
     void CloneFood()
     {
-        randomPlacement.SetRandomPosition();
-        GameObject prefab = alimentos[Random.Range(0,alimentos.Length)];
-        Instantiate(prefab, clonePoint.position, clonePoint.rotation);
+        if (amountOfFood > 0)
+        {
+            randomPlacement.SetRandomPosition();
+            GameObject prefab = alimentos[Random.Range(0, alimentos.Length)];
+            Instantiate(prefab, clonePoint.position, clonePoint.rotation);
+
+            amountOfFood -= 1;
+        }
     }
 }
